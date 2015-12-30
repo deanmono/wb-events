@@ -1,0 +1,51 @@
+<div class="page-header row">
+	<div class="small-10 columns">
+		<h1>Add New Event</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="callout" ng-show="alert" ng-class="{success: alert.type == 'success', alert: alert.type == 'error'}">
+		<h5>{{ alert.description }}</h5>
+		<a ui-sref="eventsList" ng-show="alert.type == 'success'">Return to event listings.</a>
+	</div>
+</div>
+<section class="row">
+	<div class="add-form columns small-12">
+		<form ng-submit="submitAddForm()">
+			<label>Event Name
+				<input type="text" id="eventName" placeholder="Whats your events name?" ng-model="addForm.title" required />
+			</label>
+
+			<label>Description
+				<input type="text" id="eventDesc" placeholder="Add a description." ng-model="addForm.description" />
+			</label>
+
+			<label>Category
+				<select ng-model="addForm.category">
+					<option value="music">Music</option>
+					<option value="sports">Sports</option>
+					<option value="food">Food</option>
+					<option value="other">Other</option>
+				</select>
+			</label>
+
+			<label>Start Date
+				<input type="date" name="startdate" ng-model="addForm.startDate" max="{{ addForm.endDate | date: 'yyyy-MM-dd' }}" required />
+			</label>
+
+			<label>End Date
+				<input type="date" name="enddate" ng-model="addForm.endDate" min="{{ addForm.startDate | date: 'yyyy-MM-dd' }}" required />
+			</label>
+
+			<input id="featureEvent" type="checkbox" ng-model="addForm.featured"><label for="featureEvent">Feature This Event</label>
+
+			<button type="submit" class="expanded button" ng-disabled="disabled">
+				<span ng-hide="disabled">Add New Event</span>
+				<span ng-show="disabled">Sending...</span>
+			</button>
+
+
+		</form>
+	</div>
+</section>
+

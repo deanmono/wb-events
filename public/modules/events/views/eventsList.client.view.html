@@ -1,0 +1,52 @@
+<div class="page-header row">
+	<div class="small-10 columns">
+		<h1>Events</h1>
+	</div>
+	<div class="small-2 columns">
+		<button class="button large float-right" ui-sref="eventAdd"><i class="glyphicon glyphicon-plus"></i> Add Event</button>
+	</div>
+</div>
+<div class="row">
+	<div class="events columns small-12">
+		<div class="row" ng-show="events.length === 0 && haveEventsResponse">
+			<h4 class="text-center">No events. <a ui-sref="eventAdd">Would you like to add one?</a></h4>
+		</div>
+		<div class="row" ng-hide="haveEventsResponse">
+			<h4 class="text-center">Loading event listings. One moment Please...</h4>
+		</div>
+	</div>
+</div>
+<section class="row">
+	<div class="events columns small-12">
+		<div class="row event" ng-repeat="event in events | orderBy: 'startDate' : reverse">
+			<div class="columns small-12">
+				<div class="row">
+					<div class="small-9 columns">
+						<div class="row">
+							<div class="columns small-12">
+								<h4 class="panel-title">
+									{{ event.title }} - {{ event.startDate | date:'mediumDate' }}
+								</h4>
+							</div>
+						</div>
+					</div>
+					<div class="small-3 columns">
+						<div class="row">
+							<div class="small-12 columns">
+								<div class="button-group float-right">
+									<button type="button" class="small button" ng-click="eventDetails(event._id)">Details</button>
+									<button type="button" class="small button" ui-sref="eventEdit({eventId: event._id})">Edit</button>
+									<button type="button" class="small alert button" ng-click="eventDelete(event._id)">Remove</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<event-details event="event" ng-show="isVisible == event._id"></event-details>
+
+			</div>
+
+		</div>
+	</div>
+</section>
